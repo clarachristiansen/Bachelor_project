@@ -2,10 +2,10 @@ import numpy as np
 import pandas as pd
 import requests
 
-data = pd.read_parquet(path = "DSB_BDK_trainingset.parquet")
+data = pd.read_parquet(path = "Data/DSB_BDK_trainingset.parquet")
 data = data.reset_index()
 
-stations_data = pd.read_csv('Stationskoder.csv', sep = ';')
+stations_data = pd.read_csv('Data/Stationskoder.csv', sep = ';')
 stations_data = stations_data.rename(columns={'Nummer': 'station'})
 
 merged = pd.merge(data[['dato', 'station']], stations_data[['station', '10km_cell']], on='station')
@@ -15,7 +15,7 @@ api_key = 'cfaf5acf-a58b-44a2-af7c-793ca531edf1'
 # metObsAPI: 'a5dfc496-b64b-4a35-9b04-685462e6e426'
 # climateDataAPI: 'cfaf5acf-a58b-44a2-af7c-793ca531edf1'
 DMI_URL = 'https://dmigw.govcloud.dk/v2/climateData/collections/10kmGridValue/items'
-parameterIds = parameterIds = ['mean_temp', 'mean_wind_speed'] # Based on check
+parameterIds = parameterIds = ['mean_temp', 'mean_wind_speed', 'acc_precip'] # Based on check
 time_resolutions = ['day']
 
 dfs = []
@@ -53,4 +53,4 @@ df = pd.concat(dfs, axis='rows')
 
 print(df)
 
-df.to_csv('DMI_data.csv')
+df.to_csv('Data/DMI_data_precip.csv')
