@@ -17,6 +17,7 @@ api_key = 'cfaf5acf-a58b-44a2-af7c-793ca531edf1'
 DMI_URL = 'https://dmigw.govcloud.dk/v2/climateData/collections/10kmGridValue/items'
 parameterIds = parameterIds = ['mean_temp', 'mean_wind_speed', 'acc_precip'] # Based on check
 time_resolutions = ['day']
+print(1)
 
 dfs = []
 for index, row in merged.iterrows():
@@ -47,6 +48,7 @@ for index, row in merged.iterrows():
             #dfi = pd.DataFrame({'station': station, dfi['properties.parameterId'].values[0] : dfi['properties.value'].values[0]}, index=[0])
             dfii[dfi['properties.parameterId'].values[0]] = dfi['properties.value'].values[0]
     dfs.append(pd.DataFrame(dfii, index=[0]))
+    print(1)
 
 df = pd.concat(dfs, axis='rows')
 
