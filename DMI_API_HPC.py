@@ -15,7 +15,7 @@ api_key = 'cfaf5acf-a58b-44a2-af7c-793ca531edf1'
 # metObsAPI: 'a5dfc496-b64b-4a35-9b04-685462e6e426'
 # climateDataAPI: 'cfaf5acf-a58b-44a2-af7c-793ca531edf1'
 DMI_URL = 'https://dmigw.govcloud.dk/v2/climateData/collections/10kmGridValue/items'
-parameterIds = parameterIds = ['mean_temp', 'mean_wind_speed', 'acc_precip'] # Based on check
+parameterIds = parameterIds = ['acc_precip'] # Based on check 
 time_resolutions = ['day']
 print(1)
 
@@ -41,14 +41,19 @@ for index, row in merged.iterrows():
         # Extract JSON object
         json = r.json() # Extract JSON object
         # Convert JSON object to a MultiIndex DataFrame and add to list
-        dfi = pd.json_normalize(json['features'])
-        if dfi.empty is False:
-            # Drop other columns
-            #dfi = pd.DataFrame({'station': station, 'parameterId': dfi['properties.parameterId'].values[0], 'value': dfi['properties.value'].values[0]}, index=[0])
-            #dfi = pd.DataFrame({'station': station, dfi['properties.parameterId'].values[0] : dfi['properties.value'].values[0]}, index=[0])
-            dfii[dfi['properties.parameterId'].values[0]] = dfi['properties.value'].values[0]
+        try:
+            dfi = pd.json_normalize(json['features'])
+            if dfi.empty is False:
+                # Drop other columns
+                #dfi = pd.DataFrame({'station': station, 'parameterId': dfi['properties.parameterId'].values[0], 'value': dfi['properties.value'].values[0]}, index=[0])
+                #dfi = pd.DataFrame({'station': station, dfi['properties.parameterId'].values[0] : dfi['properties.value'].values[0]}, index=[0])
+                dfii[dfi['properties.parameterId'].values[0]] = dfi['properties.value'].values[0]
+        except:
+            continue
+
+        
     dfs.append(pd.DataFrame(dfii, index=[0]))
-    print(1)
+    print(index)
 
 df = pd.concat(dfs, axis='rows')
 
