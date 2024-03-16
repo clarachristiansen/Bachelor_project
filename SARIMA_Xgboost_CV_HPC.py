@@ -12,15 +12,12 @@ warnings.filterwarnings('ignore')
 
 
 # Import data
-data = pd.read_parquet("Data/DSB_BDK_trainingset.parquet")
+data = pd.read_csv("Data/Cleaned_data.csv")
 
 #Unique combinations of strækning/station
 combinations = data[['visualiseringskode', 'station']].drop_duplicates().values
 
 # Retrieve best model parameters for ARIMA models for strækning/station
-string_tuple = '(1,0)'
-tuple_result = ast.literal_eval(string_tuple)
-
 best_model_parameters = {}
 model_params_sarima = pd.read_csv('Data/Best_model_parameters_SARIMA_strækning_station.csv')
 list(model_params_sarima.items())
@@ -283,5 +280,6 @@ def linechart_strækning(strækning, cv_scores):
     plt.show()
 
 # For Kystbanen
-hist_strækning(20, cv_scores)
-linechart_strækning(20, cv_scores)
+for strækning in data['visualiseringskode'].unique():
+    hist_strækning(strækning, cv_scores)
+    linechart_strækning(strækning, cv_scores)
