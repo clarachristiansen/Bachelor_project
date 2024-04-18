@@ -164,4 +164,4 @@ cython_debug/
 **/.DS_Store
 
 # Ignore all the csv files
-.csv
+**/*.csv
