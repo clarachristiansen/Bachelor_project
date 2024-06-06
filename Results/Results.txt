@@ -1,0 +1,6 @@
+The results are stored in zip-files in the folder linked below: 
+https://drive.google.com/drive/folders/1JEBHX2JN_wRrYUt4jWyU8xRCMAcfPqIy?usp=sharing.
+It consist of the following results:
+- Cross-validation (Shifted_Runs.zip)
+- The feature consistency analysis (SHAP_consistency.zip)
+- The uncertainty estimation (Uncertainty.zip) 
